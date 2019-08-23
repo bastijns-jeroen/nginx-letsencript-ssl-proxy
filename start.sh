@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 
 echo "Enabling SSL..."
-acme.sh --issue -d $SERVER_NAME --standalone
-acme.sh --install-cert -d $SERVER_NAME \
+/root/.acme.sh/acme.sh --issue -d $SERVER_NAME --standalone
+/root/.acme.sh/acme.sh --install-cert -d $SERVER_NAME \
 --key-file       /etc/secrets/proxykey  \
 --fullchain-file /etc/secrets/proxycert \
 --reloadcmd     "service nginx force-reload"
@@ -51,6 +51,9 @@ fi
 
 # Tell nginx the address and port of the service to proxy to
 sed -i "s/{{TARGET_SERVICE}}/${TARGET_SERVICE}/g;" /etc/nginx/conf.d/proxy.conf
+
+# Tell nginx the name of the service
+sed -i "s/{{SERVER_NAME}}/${SERVER_NAME}/g;" /etc/nginx/conf.d/proxy.conf
 
 echo "Starting nginx..."
 nginx -g 'daemon off;'
