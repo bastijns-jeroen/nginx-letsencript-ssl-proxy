@@ -12,14 +12,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 
-# Env says we're using SSL 
-if [ -n "${ENABLE_SSL+1}" ] && [ "${ENABLE_SSL,,}" = "true" ]; then
-  echo "Enabling SSL..."
-  cp /usr/src/proxy_ssl.conf /etc/nginx/conf.d/proxy.conf
-else
-  # No SSL
-  cp /usr/src/proxy_nossl.conf /etc/nginx/conf.d/proxy.conf
-fi
+echo "Enabling SSL..."
+acme.sh --issue -d $SERVER_NAME --standalone
+acme.sh --install-cert -d $SERVER_NAME \
+--key-file       /etc/secrets/proxykey  \
+--fullchain-file /etc/secrets/proxycert \
+--reloadcmd     "service nginx force-reload"
+
+cp /usr/src/proxy_ssl.conf /etc/nginx/conf.d/proxy.conf
 
 # If an htpasswd file is provided, download and configure nginx 
 if [ -n "${ENABLE_BASIC_AUTH+1}" ] && [ "${ENABLE_BASIC_AUTH,,}" = "true" ]; then
