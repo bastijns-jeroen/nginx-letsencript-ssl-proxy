@@ -25,10 +25,10 @@ RUN mkdir -p /etc/nginx/extra-conf.d
 
 WORKDIR /usr/src
 
-ADD start.sh /usr/src/
-ADD nginx/nginx.conf /etc/nginx/
-ADD nginx/proxy*.conf /usr/src/
-ADD nginx/extra/*.conf /etc/nginx/extra-conf.d/
+COPY start.sh /usr/src/
+COPY nginx/nginx.conf /etc/nginx/
+COPY nginx/proxy*.conf /usr/src/
+COPY nginx/extra/*.conf /etc/nginx/extra-conf.d/
 
 RUN apk add openssl
 RUN apk add socat
