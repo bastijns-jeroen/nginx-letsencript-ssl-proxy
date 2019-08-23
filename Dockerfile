@@ -33,6 +33,7 @@ ADD nginx/extra/*.conf /etc/nginx/extra-conf.d/
 RUN apk add openssl
 RUN apk add socat
 RUN apk add bash
+RUN apk add sed
 RUN wget -O -  https://get.acme.sh | sh
 
 ENTRYPOINT ./start.sh
