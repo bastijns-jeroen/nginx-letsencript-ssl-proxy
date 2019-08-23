@@ -13,8 +13,8 @@
 # See the License for the specific language governing permissions and
 
 echo "Enabling SSL..."
-/root/.acme.sh/acme.sh --issue -d $SERVER_NAME --standalone
-/root/.acme.sh/acme.sh --install-cert -d $SERVER_NAME \
+/root/.acme.sh/acme.sh --issue --log -d $SERVER_NAME --standalone
+/root/.acme.sh/acme.sh --install-cert --log -d $SERVER_NAME \
 --key-file       /etc/secrets/proxykey  \
 --fullchain-file /etc/secrets/proxycert \
 --reloadcmd     "service nginx force-reload"
