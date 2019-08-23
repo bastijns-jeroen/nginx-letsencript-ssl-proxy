@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 
 echo "Enabling SSL..."
-mkdir -r /etc/secrets
+mkdir -p /etc/secrets
 acme.sh --issue --log -d $SERVER_NAME --standalone
 acme.sh --install-cert --log -d $SERVER_NAME \
 --key-file       /etc/secrets/proxykey  \
